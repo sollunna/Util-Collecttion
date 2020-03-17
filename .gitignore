@@ -1,0 +1,10 @@
+/.idea/
+/.settings/
+/target/
+/webContent/
+.classpath
+.factorypath
+.project
+jhcredit-web.iml
+*.class
+/src/main/resources/rebel-remote.xml
