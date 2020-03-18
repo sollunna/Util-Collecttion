@@ -12,7 +12,7 @@ import java.io.OutputStream;
 import java.net.SocketException;
 
 /**
- * @Author: Azure
+ * @Author: NineEr
  * @Date: 2020/3/17 14:45
  * @Description:FTP客户端连接工具
  */
