@@ -85,6 +85,18 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.51</version>
+        </dependency>
+        <!-- jsch 所依赖的jar包 -->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jzlib</artifactId>
+            <version>1.0.7</version>
+        </dependency>
+
     </dependencies>
 
 
