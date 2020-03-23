@@ -218,7 +218,6 @@ public final class StrUtil {
 
     /**
      * 对ID（32位）进行编码
-     *
      * @param id
      * @return
      */

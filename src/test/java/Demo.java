@@ -1,9 +1,5 @@
-import org.apache.poi.hslf.record.ExObjListAtom;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.concurrent.*;
 
 /**
  * @Author: NineEr
@@ -12,45 +8,16 @@ import java.util.List;
  */
 public class Demo {
     public static void main(String[] args) {
-        ArrayList<String> paths = new ArrayList<String>();
-        getAllFilePaths(new File("D:\\DeveloperTools\\Git"),paths);
-        for (String path : paths) {
-            System.out.println(path);
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        for (int i = 0; i < 10; i++) {
+            executorService.execute(new ThreadPoolDemo());
         }
+        System.out.println("主线程名称:"+Thread.currentThread().getName());
+        //关闭线程池
+        executorService.shutdown();
     }
 
-    private static void getAllFilePaths(File filePaths, ArrayList<String> paths) {
-        File[] files = filePaths.listFiles();
 
-        if (files==null){
-            return;
-        }else{
-            for (File file : files) {
-                if(file.isDirectory()){
-                    paths.add(file.getPath());
-                    getAllFilePaths(file,paths);
-                }else {
-                    paths.add(file.getPath());
-                }
-            }
-        }
-    }
-
-    private static void getAllFilePaths2(File filePath, List<String> paths) {
-        File[] files = filePath.listFiles();
-        if(files==null){
-            return;
-        }
-        for (File file : files) {
-            if(file.isDirectory()){
-                paths.add(file.getPath());
-                //getAllFilePaths(file,paths);
-            }else{
-                paths.add(file.getPath());
-            }
-        }
-
-    }
 
 
 
