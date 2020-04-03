@@ -12,7 +12,7 @@ import java.util.Random;
 /**
  * @author NineEr
  * @Date 2020/4/1 0001 11:35
- * @Description TODO
+ * @Description 随机字符验证码生成工具类
  * @Version 1.0
  **/
 public class CreateVerifyCode {
