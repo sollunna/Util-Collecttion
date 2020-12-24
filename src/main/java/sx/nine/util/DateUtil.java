@@ -3,9 +3,12 @@ package sx.nine.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @Author: NineEr
@@ -22,6 +25,148 @@ public class DateUtil {
     public static DateFormat DATE_TIME_FORMAT_SHORT = new SimpleDateFormat("yyyyMMddHHmmss");
     public static String DAY_START_TIME = "00:00:00";
     public static String DAY_END_TIME = "23:59:59";
+
+
+    /**
+     * 根据身份证获取出生日期
+     * @author psx
+     * @date 2020/12/24 8:52
+     * @param idCard 身份证号
+     * @return java.lang.String
+     * @throws
+    */
+    public static String getBirthDayByIDcard(String idCard){
+        String birthDay;
+        if(StringUtils.isBlank(idCard)){
+            return null;
+        }
+        //15位身份证
+        if (idCard.length() == 15) {
+            birthDay = "19" + idCard.substring(6, 12);
+            //18位身份证
+        } else if (idCard.length() == 18) {
+            birthDay = idCard.substring(6, 14);
+        } else {//默认是合法身份证号，但不排除有意外发生
+            return null;
+        }
+        return birthDay;
+    }
+
+    /**
+     * 根据出生日期获取至指定日期的年龄
+     * @author psx
+     * @date 2020/12/24 8:52
+     * @param birthDay
+     * @return int
+     * @throws
+     */
+    public static int getAgeByDate(String birthDay,String day) {
+        int age ;
+        //判断当前时间是否在出生年月之后
+        //出生年月
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        try {
+            Date birthday = simpleDateFormat.parse(birthDay);
+            Date parse = simpleDateFormat.parse(day);
+            Calendar before = Calendar.getInstance();
+            Calendar after = Calendar.getInstance();
+            before.setTime(birthday);
+            after.setTime(parse);
+            if (after.getTimeInMillis() - before.getTimeInMillis() < 0L) {
+                return -1;
+            }
+            //死亡日期
+            int yearNow = after.get(Calendar.YEAR);
+            int monthNow = after.get(Calendar.MONTH);
+            int dayOfMonthNow = after.get(Calendar.DAY_OF_MONTH);
+
+            //出生日期
+            int yearBirthday = before.get(Calendar.YEAR);
+            int monthBirthday = before.get(Calendar.MONTH);
+            int dayOfMonthBirthday = before.get(Calendar.DAY_OF_MONTH);
+
+            age= yearNow - yearBirthday;
+            if (monthNow <= monthBirthday) {
+                if (monthNow == monthBirthday) {
+                    if (dayOfMonthNow < dayOfMonthBirthday) {
+                        age--;
+                    }
+                } else {
+                    age--;
+                }
+            }
+        } catch (ParseException e) {
+            return -1;
+        }
+        return age;
+    }
+
+
+    /**
+     * 获取某个日期指定几个月后的日期
+     * @author psx
+     * @date 2020/11/24 20:16
+     * @param date
+     * @return java.lang.Integer
+     * @throws
+     */
+    public static Integer getMonthNext(Date date,Integer number){
+        Calendar dateNext = Calendar.getInstance();
+        dateNext.setTime(date);
+        dateNext.add(Calendar.MONTH, number);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMM");
+        String format =simpleDateFormat.format(dateNext.getTime());
+        return Integer.parseInt(format);
+    }
+
+    /**
+     * 获取2个日期之间相差的月份数
+     * @author psx
+     * @date 2020/11/23 20:22
+     * @param begin
+     * @param end
+     * @return java.lang.Integer
+     * @throws
+     */
+    public static Integer getMonthDiff(Date begin, Date end){
+        Calendar before = Calendar.getInstance();
+        Calendar after = Calendar.getInstance();
+        before.setTime(begin);
+        after.setTime(end);
+        Integer result = after.get(Calendar.MONTH) - before.get(Calendar.MONTH);
+        Integer month = (after.get(Calendar.YEAR) - before.get(Calendar.YEAR)) * 12;
+        return result + month;
+    }
+
+    /**
+     * 获取俩个相差的日期集合
+     * @author psx
+     * @date 2020/11/23 17:29
+     * @param begin 待遇开始年月
+     * @param end 系统当前结算期
+     * @return java.util.List<java.lang.Integer>
+     * @throws
+     */
+    public static List<Integer> getMonthDiffList(Date begin, Date end){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
+        Calendar before = Calendar.getInstance();
+        Calendar after = Calendar.getInstance();
+        before.setTime(begin);
+        after.setTime(end);
+        int result = after.get(Calendar.MONTH) - before.get(Calendar.MONTH);
+        int month = (after.get(Calendar.YEAR) - before.get(Calendar.YEAR)) * 12;
+        int total = result + month;
+        //所有值
+        List<Integer> dates = new ArrayList<>();
+        for (int i = 0; i < total; i++) {
+            //日期加一个月
+            before.add(Calendar.MONTH, 1);
+            Date time = before.getTime();
+            //转格式
+            dates.add(Integer.parseInt(sdf.format(time)));
+        }
+        return dates;
+    }
 
     /**
      * 取得服务器当前日期
