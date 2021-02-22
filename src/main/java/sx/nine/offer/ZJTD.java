@@ -171,6 +171,8 @@ public class ZJTD {
 
   /*
       6.1.9 设计http协议，A端发送 AAAA，至少让B端知道AAAA已发送完成。
+      用 Content-Length 告诉B传输的数据长度
+      Content-Length = chunked 的话，最后一个块大小为0，说明本次数据发送完成
       */
 
   /*
@@ -183,14 +185,52 @@ public class ZJTD {
 
   /*
       6.2.2 创建数据库索引应该怎么考虑？
+      普通索引 index
+      全文索引 fulltext
+      唯一索引 unique
+      主键 primary key
+
+      对 where、order_by、group_by 的字段优先考虑建立索引
+      表的主键和外键必须要有索引
+      区分度高的建立索引（同值较少）
+      单表数据太少，不适合建索引
+      必要时可以建立联合索引，遵循最左原则，例如index(a,b,c)，实际上是建立了index(a)，index(a,b)，index(a,b,c)三个索引
+      NULL 值会导致索引失效
+
       */
 
   /*
       6.2.3 使用int 做primary key和使用string 有什么优劣？
+      使用 INT
+      优势
+      存储空间小，只需要 4 byte
+      插入和更新性能比 string 好，一定程度提高应用的性能
+      join 操作性能好
+      支持通过函数获取最新值
+      建立索引占用空间小
+      查询效率高
+      缺点
+      INT 类型数据范围有限制，如果存在大量的数据可能会超出 INT 的范围
+      如果有合并表的操作，可能会出现主键重复
+
+      使用string
+      优势
+      长度几乎没有限制
+      适合对表水平拆分，方便扩展
+      可以自己生成，不受整数的限制
+      劣势
+      占用空间较大
+      join 的性能比 INT 低
+      没有内置函数生成，需要在业务层先生成
+      不利于外键关联
+
       */
 
   /*
       6.2.4 数据库分表的方法？
+
+
+
       */
 
   /*
@@ -203,14 +243,23 @@ public class ZJTD {
 
   /*
       6.2.7 不使用高级工具，只使用Linux自带的工具，你会如何debug?
+
+      输出对应目录的 LOG 文件，通过 cat 和 grep 可以做到过滤
+      strace 工具跟踪程序的系统调用
+      gdb 调试工具
+      tcpdump 可以抓网络数据包
       */
 
   /*
       6.2.8 如何预估一个mysql语句的性能？
-      */
+      使用 explain 分析
 
-  /*
-      6.2.9 go函数中，返回值未命名，发生了panic，但是在函数内recover了。函数返回什么值？
+      重点关注：
+
+      type 如果等于 all ，说明是全表扫描，需要优化。其他取值有：ref、range、index 等，遵循：ALL < index < range ~ index_merge < ref < eq_ref < const < system
+      key 使用的索引名称
+      extra 可以看到本条语句是否使用了索引，是否是 filesort 排序等。可能的取值有：Using index、Using temporary、Using filesort、Using where 等
+      rows 显示一共扫描了多少行，预估值
       */
 
   /*
@@ -219,6 +268,12 @@ public class ZJTD {
 
   /*
       6.3.1 free -h，buffers 和cached有什么不同
+      Free中的buffer和cache （它们都是占用内存）基于内存的
+      buffer ：作为buffer cache的内存，是块设备的读写缓冲区
+      cache：作为page cache的内存， 文件系统的cache
+
+      cached是cpu与内存间的，buffer是内存与磁盘间的，都是为了解决速度不对等的问题
+      buffer是即将要被写入磁盘的，而cache是被从磁盘中读出来的
       */
 
   /*
