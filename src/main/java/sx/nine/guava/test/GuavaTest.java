@@ -1,21 +1,32 @@
 package sx.nine.guava.test;
 
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 /**
  * @Author NineEr
  * @Description //
  * @Date $ $
  **/
 public class GuavaTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        /*第一题：
-        某国货币系统包含面值1元，4元，16元，64元共计4种硬币，以及面值1024元的纸币。
-        现在某人使用1024元的纸币购买了一件价格为N(0≤N≤1024)的商品。
-        请问最少他会收到多少枚硬币?
-            求解思路：贪心算法*/
+        FileInputStream fileInputStream = new FileInputStream("D:\\gitworkspace\\Util-Collecttion\\src\\main\\java\\sx\\nine\\guide\\Redis.md");
+        BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
 
+        FileOutputStream fileOutputStream = new FileOutputStream("D:\\gitworkspace\\Util-Collecttion\\src\\main\\java\\sx\\nine\\guide\\Redis2.md");
+        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
 
+        int size;
+        byte[] bytes = new byte[1024];
+        while ((size = bufferedInputStream.read(bytes))!=-1){
+            bufferedOutputStream.write(bytes,0,size);
+            bufferedOutputStream.flush();
+        }
 
     }
 }
