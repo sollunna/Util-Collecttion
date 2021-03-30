@@ -1,4 +1,4 @@
-package sx.nine.offer;
+package sx.nine.guide;
 
 import java.util.Arrays;
 import java.util.List;
