@@ -52,7 +52,7 @@ public class Foo {
      }
 
       printFirst.run();
-      count++;
+      count=1;
       lock.notifyAll();
     }
   }
@@ -64,7 +64,7 @@ public class Foo {
       }
 
       printSecond.run();
-      count++;
+      count=2;
       lock.notifyAll();
     }
   }
@@ -77,36 +77,33 @@ public class Foo {
       }
 
       printThird.run();
-      count++;
-      lock.notifyAll();
     }
   }
 
   private static void FooTest01() throws InterruptedException{
     Foo foo = new Foo();
-    Thread thread1 = new Thread(() -> {
+    Thread thread1 = new Thread(()->{
       try {
-        foo.first(() -> {
-          System.out.println("one");
-
+        foo.first(()->{
+          System.out.println(1);
         });
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
     });
-    Thread thread2 = new Thread(() -> {
+    Thread thread2 = new Thread(()->{
       try {
-        foo.second(() -> {
-          System.out.println("two");
+        foo.second(()->{
+          System.out.println(2);
         });
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
     });
-    Thread thread3 = new Thread(() -> {
+    Thread thread3 = new Thread(()->{
       try {
-        foo.third(() -> {
-          System.out.println("third");
+        foo.third(()->{
+          System.out.println(3);
         });
       } catch (InterruptedException e) {
         e.printStackTrace();

@@ -169,6 +169,26 @@ public class DateUtil {
     }
 
     /**
+     * 计算2个日期相差的天数
+     * @author psx
+     * @date 2021/4/2 9:55
+     * @param start
+     * @param end
+     * @return int
+     * @throws
+     */
+    public static int daysBetween(String start,String end) throws ParseException{
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(sdf.parse(start));
+        long time1 = cal.getTimeInMillis();
+        cal.setTime(sdf.parse(end));
+        long time2 = cal.getTimeInMillis();
+        long between_days=(time2-time1)/(1000*3600*24);
+        return Integer.parseInt(String.valueOf(between_days));
+    }
+
+    /**
      * 取得服务器当前日期
      *
      * @return 当前日期：格式（yyyy-MM-dd）
