@@ -22,12 +22,33 @@ public class GuavaTest {
             //统计单词数量
             String s=String.valueOf(count);
             String[ ] words=s.replaceAll("[^a-zA-Z]+"," ").trim( ).split(" ");
-
             System.out.println("字符数量："+count.length+"\n单词数量："+words.length);
             reader.close();
         }
         catch(IOException exception) {
             exception.printStackTrace();
         }
+
+    }
+
+    public int[] SquareArray(int[] A) {
+        // write your code here
+        for(int i=0;i<A.length;i++){
+            A[i]= (int) Math.sqrt(2);
+        }
+        int[] res = new int[4];
+
+        int min ;
+        int max ;
+        for(int i=0;i<A.length;i++){
+            min = A[i];
+            for(int j=0;j<A.length;j++){
+                if(min>A[j]){
+                    min=A[j];
+                }
+            }
+            res[i]=min;
+        }
+        return  res;
     }
 }
