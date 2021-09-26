@@ -6,9 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
 
 /**
  * @Author: NineEr
@@ -16,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
  * @Description:
  * 时间日期处理工具类
  */
+@Component
 public class DateUtil {
 
     public static DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
@@ -138,6 +142,8 @@ public class DateUtil {
         return result + month;
     }
 
+
+
     /**
      * 获取俩个相差的日期集合
      * @author psx
@@ -166,6 +172,72 @@ public class DateUtil {
             dates.add(Integer.parseInt(sdf.format(time)));
         }
         return dates;
+    }
+
+    public static void main(String[] args) throws ParseException {
+        String start = "202005";
+        String end = "202009";
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyyMM");
+        Date parse = sdf.parse(start);
+        Date parse1 = sdf.parse(end);
+        List<Integer> monthDiffList = getMonthDiffList(parse,parse1);
+        //for循环测试
+        List<Integer> integers = new ArrayList<>();
+        int a = Integer.parseInt(start);
+        for (Integer integer : monthDiffList) {
+            if(a>Integer.parseInt(end)){
+                break;
+            }
+            //业务处理
+            integers.add(a);
+            a++;
+        }
+
+        for (Integer integer : integers) {
+            System.out.println(integer);
+        }
+
+    }
+
+    /***
+     * 差异数据测试
+     * @author shaoxia.peng
+     * @date 2021/9/26 15:46
+     * @param
+     * @return void
+     * @throws
+    */
+    private static void changeTest() throws ParseException {
+        String start = "202005";
+        String end = "202009";
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyyMM");
+        Date parse = sdf.parse(start);
+        Date parse1 = sdf.parse(end);
+        List<Integer> monthDiffList = getMonthDiffList(parse,parse1);
+        //结果
+        Set<Integer> integers = new HashSet<>();
+
+        Set<Integer> a = new HashSet<>(monthDiffList);
+        for (Integer integer : a) {
+            System.out.println("标杆数据:"+integer);
+        }
+        Set<Integer> b = new HashSet<>();
+        //b.add(202005);
+        // b.add(202006);
+        b.add(202007);
+        b.add(202008);
+        b.add(202009);
+        //b.add(202010);
+        for (Integer integer : b) {
+            System.out.println("校验数据:"+integer);
+        }
+        //差集
+        integers.clear();
+        integers.addAll(b);
+        integers.removeAll(a);
+        for (Integer integer : integers) {
+            System.out.println("差异数据:"+integer);
+        }
     }
 
     /**
