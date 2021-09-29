@@ -1,5 +1,6 @@
 package sx.nine.util;
 
+import java.math.BigDecimal;
 import javax.annotation.Resource;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
@@ -23,8 +24,5 @@ public class TestUtil implements InstantiationAwareBeanPostProcessor {
     return false;
   }
 
-  public static void main(String[] args) {
 
-
-  }
 }
