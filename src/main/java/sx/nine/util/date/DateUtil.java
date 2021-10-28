@@ -1,4 +1,4 @@
-package sx.nine.util;
+package sx.nine.util.date;
 
 import java.text.DateFormat;
 import java.text.ParseException;

@@ -1,6 +1,6 @@
 package sx.nine.util.IDCard;
 
-import sx.nine.util.DateUtil;
+import sx.nine.util.date.DateUtil;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;

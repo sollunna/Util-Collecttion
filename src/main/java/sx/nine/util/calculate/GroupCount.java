@@ -1,4 +1,4 @@
-package sx.nine.util;
+package sx.nine.util.calculate;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
