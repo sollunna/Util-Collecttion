@@ -1,5 +1,6 @@
 package sx.nine.dto;
 
+import java.math.BigDecimal;
 import lombok.Data;
 
 /**
@@ -13,5 +14,6 @@ import lombok.Data;
 public class User {
   private Integer aab001;
   private Integer age;
+  private BigDecimal size;
   private String aac001;
 }
