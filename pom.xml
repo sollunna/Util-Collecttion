@@ -88,7 +88,7 @@
         <dependency>
             <groupId>com.jcraft</groupId>
             <artifactId>jsch</artifactId>
-            <version>0.1.51</version>
+            <version>0.1.54</version>
         </dependency>
         <!-- jsch 所依赖的jar包 -->
         <dependency>
@@ -170,6 +170,11 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>3.3.2</version><!--版本号-->
             </dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.1</version>
+        </dependency>
     </dependencies>
 
 

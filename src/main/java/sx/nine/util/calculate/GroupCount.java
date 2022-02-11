@@ -3,6 +3,7 @@ package sx.nine.util.calculate;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import sx.nine.dto.User;
 
 /**
@@ -53,13 +54,24 @@ public class GroupCount {
     users.add(user6);
     //1+66
     //对某字段求和
-    BigDecimal result = users.stream().map(user000 -> BigDecimal.valueOf(user000.getAge())).reduce(BigDecimal.ZERO,BigDecimal::add);
+    BigDecimal result = users.stream().filter(a-> Objects.nonNull(a.getAge())).map(user000 -> BigDecimal.valueOf(user000.getAge())).reduce(BigDecimal.ZERO,BigDecimal::add);
     System.out.println(result);
 
 // 将user对象的age取出来map为Bigdecimal
 
 // 使用reduce()聚合函数,实现累加器
     //测试分组求和
+    /*Map<String, List<User>> collect = users.stream().collect(Collectors
+        .groupingBy(usertool -> String.valueOf(usertool.getAab001())));
+    final Map<String,BigDecimal> fuckup = new HashMap<>();
+    collect.forEach((key, value) -> {
+      if (null !=value && !value.isEmpty()){
+        fuckup.put(key,value.stream().filter(p -> null != p.getAge()).
+            map(fucku -> BigDecimal.valueOf(fucku.getAge())
+                .add(fucku.getSize())).reduce(BigDecimal::add).orElse(BigDecimal.ZERO));
+      }
+    });*/
+
     /*Map<String, List<User>> collect = users.stream().collect(Collectors
         .groupingBy(usertool -> usertool.getAab001()+"-"+usertool.getAge()));
     final Map<String,BigDecimal> fuckup = new HashMap<>();
@@ -69,13 +81,18 @@ public class GroupCount {
             map(fucku -> BigDecimal.valueOf(fucku.getAge())
                 .add(fucku.getSize())).reduce(BigDecimal::add).orElse(BigDecimal.ZERO));
       }
-    });
-    Iterator<Map.Entry<String,BigDecimal>> iterator = fuckup.entrySet().iterator();
+    });*/
+
+    /*Iterator<Entry<String,BigDecimal>> iterator = fuckup.entrySet().iterator();
     while (iterator.hasNext()){
       Entry<String, BigDecimal> next = iterator.next();
       System.out.println("key:"+next.getKey()+",value:"+next.getValue());
-    }
-    System.out.println(fuckup);*/
+    }*/
+    /*System.out.println(fuckup);
+    Number add = MathUtils.add(1, 20);
+    System.out.println(add);
+    Number subtract = MathUtils.subtract(100, 20);
+    System.out.println(subtract);*/
   }
 
 }
