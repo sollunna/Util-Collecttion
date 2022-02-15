@@ -174,9 +174,37 @@ public class DateUtil {
         return dates;
     }
 
+    /***
+     * 获取俩个年度之间所以的年份(包头包尾)
+     * @author shaoxia.peng
+     * @date 2022-2-14 11:05
+     * @param startYMS
+     * @param endYMS
+     * @return java.util.List<java.lang.Integer>
+     * @throws
+    */
+    public static List<Integer> getYearList(int startYMS,int endYMS){
+        List<Integer> ymList = new ArrayList<>();
+        while(startYMS<=endYMS){
+            ymList.add(startYMS);
+            startYMS+=1;
+        }
+        return ymList;
+    }
+
     public static void main(String[] args) throws ParseException {
-        String start = "202005";
-        String end = "202009";
+        int s = 2012;
+        int e = 2020;
+        List<Integer> yearList = getYearList(s, e);
+        for (Integer integer : yearList) {
+            System.out.println(integer);
+        }
+
+
+
+        /*String start = "2012";
+        String end = "2020";
+
         SimpleDateFormat sdf=new SimpleDateFormat("yyyyMM");
         Date parse = sdf.parse(start);
         Date parse1 = sdf.parse(end);
@@ -195,7 +223,7 @@ public class DateUtil {
 
         for (Integer integer : integers) {
             System.out.println(integer);
-        }
+        }*/
 
     }
 
