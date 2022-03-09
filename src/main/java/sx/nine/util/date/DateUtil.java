@@ -193,15 +193,16 @@ public class DateUtil {
     }
 
     public static void main(String[] args) throws ParseException {
-        int s = 2012;
+        /*int s = 2012;
         int e = 2020;
         List<Integer> yearList = getYearList(s, e);
         for (Integer integer : yearList) {
             System.out.println(integer);
-        }
-
-
-
+        }*/
+        //System.out.println(20211201/100);
+        System.out.println((20220101/10000-1)+12*100+12);
+        System.out.println((20220101/10000-1));
+        System.out.println((20220101/10000-1)*10000+12*100+12);
         /*String start = "2012";
         String end = "2020";
 
